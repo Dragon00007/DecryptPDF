@@ -12,7 +12,7 @@ if file.endswith(pdf):
     Password = input('please input the password.\nIn case of open password protected PDF files press Enter:\n')
     pdf = pikepdf.open(file, password=Password)
     pdf.save(NewFile)
-    print('"' + f"{file}" + '"' + ' has been decrypted successfully.')
+    print('"' + file + '"' + ' has been decrypted successfully.')
 else:
     print('This is not a PDF file.')
 print("Program ended.\n****************")
