@@ -1,18 +1,38 @@
 '''
     Requirement:
-                pip install pikepdf
+                pikepdf
+                tkinter
 '''
-import pikepdf
+import pikepdf, tkinter, os
+from tkinter import filedialog
+from pathlib import Path
+print(' ***** NOTICE: MAKE SURE THAT THIS WINDOW IS ACTIVE BEFORE PRESSING ENTER *****')
 
-file = input('Please enter the fullPath of the PDF file.\n')
+input("\n Let's select your PDF file!\n Press Enter :-)")
+root = tkinter.Tk()
+root.withdraw()
+filename = filedialog.askopenfilename(title="Please select the PDF file", filetypes=(("PDF files", "*.pdf"), ("All files", "*.*")))
+dir = Path(filename)
+dir = dir.parent
+
 pdf = '.pdf'
-
-if file.endswith(pdf):
-    NewFile = file.replace(pdf, ' [Unlocked].pdf')
-    Password = input('please input the password.\nIn case of open password protected PDF files press Enter:\n')
-    pdf = pikepdf.open(file, password=Password)
+if filename.endswith(pdf):
+    global NewFile
+    global destDir
+    NewFile = filename.replace(pdf, ' [Unlocked].pdf')
+    Password = input('\n Please input the password. In case of open password protected PDF files, press Enter\n')
+    print("\n\n Please wait. I'm decrypting your file....\n This might take a few tiny seconds...")
+    pdf = pikepdf.open(filename, password=Password)
     pdf.save(NewFile)
-    print('"' + file + '"' + ' has been decrypted successfully.')
+    pdf.close()
+    NewFile = Path(NewFile)
+    destDir = NewFile.parent
+    NewFile = NewFile.name
+    print('\n\n Yay! I have decrypted "' + filename + '"' + ' successfully ;-)')
+    print(f" Your decrypted PDF has been saved as \"{NewFile}\" in the same folder.\n\n See ya later!\n\n Program ended.\n ****************")
 else:
-    print('This is not a PDF file.')
-print("Program ended.\n****************")
+    print('\n\n This is not a PDF file :-(\n Program ended.\n ****************')
+
+
+input('\n\n Press Enter to exit the program and open the folder :-]')
+os.startfile(destDir)
