@@ -17,7 +17,7 @@ dir = dir.parent
 
 pdf = '.pdf'
 if filename.endswith(pdf):
-    global NewFile
+
     global destDir
     NewFile = filename.replace(pdf, ' [Unlocked].pdf')
     Password = input('\n Please input the password. In case of open password protected PDF files, press Enter\n')
